@@ -1,6 +1,6 @@
 <h1>Solitaire Security</h1>
 <i>Digital vault for encrypting files inside a virtual lockbox.</i>
-<br>
+<br><br>
 Solitaire Security is a digital vault that encrypts the contents of files, and will lock them inside an encrypted zip archive. Credit goes to
 developer and PyPi package creator Anthon from Ruamel, for the package ruamel.std.zipfile which we tailored to allow for password handling
 and encrypted zip archives. Solitaire Security works offline - with a local server that acts as an interface, and online with our global server that acts

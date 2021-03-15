@@ -25,21 +25,21 @@ Here is what your very own personal vault looks like:
         Windows and run it with administrator privileges). When the installer opens up, make sure you tick the box in the bottom left that says "Add Python 3.9 to PATH". This is essential so that you can call upon Python 3.9 and it's files
         whenever needed. Once installed completely, you will also have Tk and Tcl which is needed for a GUI. On your keyboard, hit <b>Win + R</b> and type <i>cmd</i> into the Run window that appears. When your Command Prompt window opens
         up, type 
-        ```
+        <i>
         pip3 install cython requests pyminizip ruamel.std.encryptedzip Pycryptodomex psutil
-        ```
+        </i>
         . If you get an error here saying 
-        ```
+        <i>
         pip3 cannot be found
-        ```
+        </i>
         then you will need to find where <i>pip3.exe</i> is located: 
-        ```
+        <i>
         where pip3
-        ```
+        </i>
         and use the 
-        ```
+        <i>
         cd
-        ```
+        </i>
         to get to it. Run the same command again when you are
         in the same directory as your <i>pip3.exe</i>. It should now install the required modules. When completed, you can then double-click the .py files in the /Windows folder of the archive you extracted earlier (or run it from Command Prompt
         or even IDLE Python itself!). If you encounter any problems or bugs, please start an Issues request on the GitHub repository.<br><br>
@@ -47,18 +47,18 @@ Here is what your very own personal vault looks like:
     <p>
         For Linux:<br>
         Download the archive <a href="https://github.com/projectintel-anon/solitaire-security">here</a> and extract it wherever you want. You will then need to install Python 3.9 with the command 
-        ```
+        `<i>
         sudo apt update; sudo apt install python3-dev python3-tk -y
-        ```
+        </i>
         , replacing <i>apt</i> with your distribution's package manager. This should add everything to your PATH automatically. Once installed completely, you will also have Tk and Tcl which is 
         needed for a GUI. You will then need to <i>cd</i> into the extracted archive, and issue the command 
-        ```
+        <i>
         pip3 install cython requests pyminizip ruamel.std.encryptedzip Pycryptodomex psutil
-        ```
+        </i>
         This will install the required modules needed for the framework. You may be prompted to update PIP, or even that you don't have PIP installed. If this is the case, you will need to install it with: 
-        ```
+        <i>
         sudo apt install curl -y; curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py; python3.9 get-pip.py
-        ```
+        </i>
         When completed, you can then double-click the .py files in the /UNIX folder of the archive you extracted earlier 
         (or run it from the terminal or your preferred IDE). If you encounter any problems or bugs, please start an Issues request on the GitHub repository.<br><br>
     </p>

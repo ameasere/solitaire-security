@@ -24,8 +24,8 @@ Here is what your very own personal vault looks like:
         Download the archive <a href="https://github.com/projectintel-anon/solitaire-security">here</a> and extract it wherever you want. You will then need to install Python 3.9 from <a href="Https://www.python.org">here</a> (click the EXE for 
         Windows and run it with administrator privileges). When the installer opens up, make sure you tick the box in the bottom left that says "Add Python 3.9 to PATH". This is essential so that you can call upon Python 3.9 and it's files
         whenever needed. Once installed completely, you will also have Tk and Tcl which is needed for a GUI. On your keyboard, hit <b>Win + R</b> and type <i>cmd</i> into the Run window that appears. When your Command Prompt window opens
-        up, type `pip3 install cython requests pyminizip ruamel.std.encryptedzip Pycryptodomex psutil`. If you get an error here saying `pip3 cannot be found`
-        then you will need to find where <i>pip3.exe</i> is located: `where pip3` and use the `cd` to get to it. Run the same command again when you are
+        up, type ```pip3 install cython requests pyminizip ruamel.std.encryptedzip Pycryptodomex psutil```. If you get an error here saying ```pip3 cannot be found```
+        then you will need to find where <i>pip3.exe</i> is located: ```where pip3``` and use the ```cd``` to get to it. Run the same command again when you are
         in the same directory as your <i>pip3.exe</i>. It should now install the required modules. When completed, you can then double-click the .py files in the /Windows folder of the archive you extracted earlier (or run it from Command Prompt
         or even IDLE Python itself!). If you encounter any problems or bugs, please start an Issues request on the GitHub repository.<br><br>
     </p>

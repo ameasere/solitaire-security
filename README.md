@@ -19,7 +19,10 @@ Here is what your very own personal vault looks like:
 ![demo](https://enigmapr0ject.live/demo/contents.jpeg)
 <br>
 <h2>Installation</h2><br>
-<p>Follow the instructions <a href=https://enigmapr0ject.live>here</a></p><br>
+<p>Follow the instructions <a href=https://enigmapr0ject.live#installation>here</a>, please make sure you have a supported operating system. So far,
+Windows 8, 10, Ubuntu & Debian, and Arch Linux are the currently supported systems although they may work on macOS and other OS too. If you modify
+the code to work and be supported on any system that isn't currently supported, please submit an issue with "feature-request", submit a pull request
+with your changes or send me an email.</p><br>
         <h2>Contents</h2><br>
         You will find folders named: <b>PHP, backups, Windows, UNIX, __pycache__ and .idea</b> with a file named bg3.gif. Here is what they do:<br>
         <br><b>/PHP</b> are the server files you will need if you plan on using this framework with your own server as an API. These need to placed in your DocumentRoot according to your Apache/Nginx virtualhost.<br>

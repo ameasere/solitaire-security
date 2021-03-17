@@ -10,7 +10,7 @@ user creates their account - and they aren't some <i>password123!</i> type "rand
 her passwords too easily. With our system, GCM keys will have a chance of 1 in 1e+32 chance to be guessed first time... that's a lot of 0s. IVs will have a 1 in 1E+16 chance to be guessed first time too... that's half as much 0s, but still a lot to keep people out of your business; especially seeing as hardware today will still struggle to guess both of these in parallel in a timely fashion.
 
 <br>
-If we already have you hooked in, you can download the archive [here:](https://enigmapr0ject.live#download) or click the download button on this repository. You
+If we already have you hooked in, you can download the archive <a href=https://enigmapr0ject.live#download>here</a> or click the download button on this repository. You
 can also clone the repository with `git` on UNIX if that is easier for you.
 
 Here is what your very own personal vault looks like:

@@ -19,6 +19,7 @@ currently being supported with security updates.
 -Version, architecture, OS, package numbers, etc.
 <h1>Package/s involved (if applicable)</h1>
 -Any packages that may be involved like tkinter, ruamel.std.encryptedzip etc.
+<h1>System Information (only if you can get past the login screen, it is a grey box in the menu)</h1>
 <h1>Description of issue</h1>
 -Describe in as much detail as possible including line numbers if possible, stacktraces if possible, and any other helpful information.
 

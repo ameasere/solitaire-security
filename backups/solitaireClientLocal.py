@@ -224,7 +224,7 @@ def processName(fileNamew, fileNamewObj, newArchiveObj):
 def getNameArchive(newArchiveObj):
     fileNamew = Tk() #Initiate window
     fileNamewObj = windowGen(fileNamew, "Name (with .zip)", "250x250", "#08198a")
-    fileNamewObj.createEntry(fileNamew, 0, 30, pw="Yes")
+    fileNamewObj.createEntry(fileNamew, 0, 30, pw="No")
     fileNamewObj.createButton(fileNamew, "Continue", 1, 5, "white", "#fa1a0a", "processName", 0, 60, fileNamew, fileNamewObj, newArchiveObj, None)
 def getName(newArchive, newArchiveObj):
     if len(filearray) < 1: #If this array isn't populated
@@ -342,7 +342,7 @@ def selectArchive():
     except ValueError:
         pass #Or if there are none, skip step
     def getPasswordZip(passwordZip, passwordObj):
-        zipPass = passwordObj.get()
+        zipPass = passwordObj.getEntry()
         if len(zipPass) < 1:
             passwordObj.createLabel(passwordZip, "Empty password", "#fa1a0a", "#08198a", 0, 200)
         else:
@@ -683,7 +683,7 @@ for item, val in getSystemInfo().items():
     sysinfo += item + ": " + val + "\n"
 def diagnostics():
     def APICheck():
-        di = requests.get("https://192.168.1.120/SolitaireSec/diagnostics.php", verify=False)
+        di = requests.get("https://192.168.1.120/SolitaireSec/diagnostics.php")
         if di.content == b"Passed":
             GUI.createLabel(guiWindow, "API status: Passed", "#f0f0f0", "#a6a4a4", 500, 100)
         elif di.content == b"Failed":

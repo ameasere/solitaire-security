@@ -23,6 +23,7 @@ from PIL import Image, ImageTk
 from itertools import count
 import random
 import platform,socket,re,uuid,psutil,logging
+import shutil
 ##########################
 #####SUPPRESS WARNINGS####
 warnings.filterwarnings("ignore") # Remove this if you are getting errors
@@ -132,6 +133,9 @@ class windowGen:
         elif function == "interpretList":
             self.button = Button(master, text=contents, height=h, width=w, fg=fgcolor, bg=bgcolor, command=lambda: interpretList(param1))
             self.button.place(x=horizontal,y=vertical)
+        elif function == "changeZipPass":
+            self.button = Button(master, text=contents, height=h, width=w, fg=fgcolor, bg=bgcolor, command=lambda: changeZipPass())
+            self.button.place(x=horizontal,y=vertical)
     def createEntry(self, master, horizontal, vertical, pw):
         if pw == "Yes":
             self.entry = Entry(master, show="*")
@@ -158,6 +162,27 @@ def refreshArrays():
     global fileCheck
     fileCheck = [] #Set array to null
 ##########################
+##########################
+#BREADTH FIRST SEARCH#####
+def breadthFirstFileScan( root ) :
+    dirs = [root]
+    # while we has dirs to scan
+    while len(dirs) :
+        nextDirs = []
+        for parent in dirs :
+            # scan each dir
+            for f in os.listdir( parent ) :
+                # if there is a dir, then save for next ittr
+                # if it  is a file then yield it (we'll return later)
+                ff = os.path.join( parent, f )
+                if os.path.isdir( ff ) :
+                    nextDirs.append( ff )
+                else :
+                    yield ff
+        # once we've done all the current dirs then
+        # we set up the next itter as the child dirs 
+        # from the current itter.
+        dirs = nextDirs
 #####################LAST OPTION CONTROL PANEL#############################
 #####Credits, please do not remove these###################################
 def logout(windowClose):
@@ -188,22 +213,22 @@ def selectFile(newArchive, newArchiveObj):
     newArchive.update() #Update the GUI window to display aforementioned label
 def checkIfExists(elem):
     for i in range(0, len(fileCheck)): #For each element in the array
-        if elem == fileCheck[i]: #Set elem to current element that the program is looking at
+        if elem in fileCheck[i]: #Set elem to current element that the program is looking at
             return True #return a boolean True value
             break #break the loop, saves time and processing power
         else:
-            pass #Otherwise, skip to the next index
+            continue #Otherwise, skip to the next index
 def processName(fileNamew, fileNamewObj, newArchiveObj):
     nameofarchive = fileNamewObj.getEntry() #Set nameofarchive to the entered name given by the user
     if len(nameofarchive) < 1: #If the array is populated
         fileNamewObj.createLabel(fileNamew, "Archive name empty", "#fa1a0a", "#08198a", 10, 100)
     else:
-        obj = os.scandir(os.getcwd()) #Scan current directory
-        for entry in obj: #For every entry returned
-            if entry.is_file(): #If the entry is a file
-                fileCheck.append(entry.name) #Add it to the array
+        for f in breadthFirstFileScan(os.getcwd()):
+            if ".zip" not in f:
+                continue
             else:
-                continue #Or if not, skip this one and keep looking
+                fileCheck.append(f)
+                break
         if checkIfExists(nameofarchive) == True: #If the archive name already exists
             fileNamewObj.createLabel(fileNamew, "Archive name taken", "#fa1a0a", "#08198a", 10, 100)
         else:
@@ -264,9 +289,8 @@ def createArchive(newArchiveObj, nameofarchive, zipPass):
     #Args work as follows: filearray2 are the files to compress, [] is the path (we use current directory), nameofarchive for the name, pforzip[0] for password
     #and 5 for compression level, this gets the best of both worlds for compression amount and processing speed. Higher means more CPU usage but ultimate
     #storage conservation. Not necessary unless the ZIP is planned to be a HUGE archive around >250MB.
-    obj2 = os.scandir(os.getcwd()) #Scan directory of the current directory
-    for entry in obj2: #For each entry returned
-        if nameofarchive == entry.name: #If the zip exists
+    for f in breadthFirstFileScan(os.getcwd()):
+        if nameofarchive in f: #If the zip exists
             GUI.createLabel(guiWindow, "Successfully created!", "green", "#08198a", 360, 350)
             #Woohoo, tell the user it worked!
             guiWindow.update() #Let the GUI display said message
@@ -661,6 +685,66 @@ def extractArchive():
         passButton = Button(passwordZip2, text="Continue", height=1, width=5, fg="white", bg="#fa1a0a", command=lambda: getPasswordZip(passwordZip2, passwordObj2, arcDisplay2))
         passButton.place(x=0, y=60)
 ################# END OF OPTION 4 CONTROL PANEL ####################################################
+################# OPTION 7 CONTROL PANEL ###########################################################
+def changePass(newPass, newPassObj, ZipToChange):
+    newPassword = newPassObj.getEntry()
+    if len(newPassword) < 1:
+        newPassObj.createLabel(newPass, "Empty password", "#fa1a0a", "#08198a", 0, 200)
+    else:
+        newPassObj.exitWindow()
+        temporaryDirArray = []
+        parentDirectory = os.getcwd()
+        if platform.system() == "Windows":
+            path = parentDirectory + "\\temporary"
+        else:
+            path = parentDirectory + "/temporary"
+        for f in breadthFirstFileScan(path):
+            temporaryDirArray.append(f)
+        os.remove(ZipToChange)
+        pyminizip.compress_multiple(temporaryDirArray, [], ZipToChange, newPassword, 5)
+        shutil.rmtree(path)
+        GUI.createLabel(guiWindow, "Successfully completed", "green", "#08198a", 360, 350)
+        return 0
+def provokeNewPass(ZipToChange, zipPass):
+    zipobject = zipfile.ZipFile(ZipToChange, 'r')
+    parentDirectory = os.getcwd()
+    if platform.system() == "Windows":
+        path = parentDirectory + "\\temporary"
+    else:
+        path = parentDirectory + "/temporary"
+    try:
+        os.mkdir(path)
+    except FileExistsError:
+        pass
+    zipPass = bytes(zipPass, encoding='utf-8')
+    zipobject.extractall(path, pwd=zipPass)
+    newPass = Tk()
+    newPassObj = windowGen(newPass, "New Password for ZIP", "250x250", "#08198a")
+    newPassObj.createEntry(newPass, 0, 30, pw="Yes")
+    passButton = Button(newPass, text="Continue", height=1, width=5, fg="white", bg="#fa1a0a",
+                        command=lambda: changePass(newPass, newPassObj, ZipToChange))
+    passButton.place(x=0, y=60)
+    return None
+def changeZipPass():
+    dir = os.getcwd()
+    ZipToChange = askopenfilename(initialdir=dir, title="Import a file", filetypes = (("ZIP archive","*.zip"),)) #File dialog for user
+    if len(ZipToChange) < 1:
+        GUI.createLabel(guiWindow, "Exception occurred", "#fa1a0a", "#08198a", 360, 350)
+        return None
+    else:
+        def getPasswordZip(passwordZip2, passwordObj2, ZipToChange):
+            zipPass = passwordObj2.getEntry()
+            if len(zipPass) < 1:
+                passwordObj2.createLabel(passwordZip2, "Empty password", "#fa1a0a", "#08198a", 0, 200)
+            else:
+                passwordObj2.exitWindow()
+                provokeNewPass(ZipToChange, zipPass)
+        passwordZip3 = Tk() #Initiate window
+        passwordObj3 = windowGen(passwordZip3, "Password for ZIP file", "250x250", "#08198a")
+        passwordObj3.createEntry(passwordZip3, 0, 30, pw="Yes")
+        passButton = Button(passwordZip3, text="Continue", height=1, width=5, fg="white", bg="#fa1a0a", command=lambda: getPasswordZip(passwordZip3, passwordObj3, ZipToChange))
+        passButton.place(x=0, y=60)
+################# END OF OPTION 7 CONTROL PANEL ####################################################
 ################ CONTROL PANEL ##################################
 def getSystemInfo():
     try:
@@ -727,7 +811,8 @@ def mainGUI():
     GUI.createButton(guiWindow, "Show contents of an archive", 1, 25, "white", "red", "displayArchive", 20, 110, None, None, None, None)
     GUI.createButton(guiWindow, "Extract an archive", 1, 15, "white", "red", "extractArchive", 20, 210, None, None, None, None)
     GUI.createButton(guiWindow, "Delete archive", 1, 15, "white", "red", "deleteArchive", 20, 160, None, None, None, None)
-    GUI.createButton(guiWindow, "Log out", 1, 15, "white", "red", "logout", 20, 260, None, None, None, None)
+    GUI.createButton(guiWindow, "Change ZIP Password", 1, 20, "white", "red", "changeZipPass", 20, 260, None, None, None, None)
+    GUI.createButton(guiWindow, "Log out", 1, 15, "white", "red", "logout", 20, 310, None, None, None, None)
     GUI.createButton(guiWindow, "Create new archive", 1, 15, "white", "red", "newArchive", 20, 10, None, None, None, None)
     GUI.createLabel(guiWindow, "Currently logged in as:\n " + uforzip[0], "#9dfcee", "#a6a4a4", 500, 50)
     diagnostics()

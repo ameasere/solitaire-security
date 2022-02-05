@@ -1,4 +1,4 @@
-<h1>Solitaire Security</h1>
+<h1>Solitaire Security **DEPRECATED**</h1>
 <i>Digital vault for encrypting files inside a virtual lockbox.</i>
 <br><br>
 Solitaire Security is a digital vault that encrypts the contents of files, and will lock them inside an encrypted zip archive. Credit goes to

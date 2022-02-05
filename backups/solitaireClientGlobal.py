@@ -43,7 +43,7 @@ class bcolors:
 class userInfo:
     def __init__(self, username, password):
         data2 = {"Username": username, "Password": password} #Create JSON object
-        url = "https://enigmapr0ject.live/api/queryKeys.php/" #URL to send to
+        url = "https://enigmapr0ject.tech/api/queryKeys.php/" #URL to send to
         headers = {} #Blank headers
         r = requests.post(url, data=data2, headers=headers) #POST JSON object
         gcmdata = r.content #Get server response
@@ -189,12 +189,12 @@ def logout(windowClose):
     closeConfirm = messagebox.askokcancel("Close", "Close Solitaire Security?")
     if closeConfirm:
         print(f"{bcolors.HEADER}Thanks for using Solitaire Security.{bcolors.ENDC}") #Purple credits header
-        print(f"{bcolors.OKCYAN}Credit: The Enigma Project\n\n GitHub: @projectintel-anon\n Email: leigh@enigmapr0ject.live\n Website: https://enigmapr0ject.live\n\n\n {bcolors.BOLD}Stay safe, guardian.{bcolors.ENDC}")
+        print(f"{bcolors.OKCYAN}Credit: The Enigma Project\n\n GitHub: @projectintel-anon\n Email: leigh@enigmapr0ject.tech\n Website: https://enigmapr0ject.tech\n\n\n {bcolors.BOLD}Stay safe, guardian.{bcolors.ENDC}")
         #Cyan credits header with my socials :)
         exit(0)
     elif windowClose is None:
         print(f"{bcolors.HEADER}Thanks for using Solitaire Security.{bcolors.ENDC}") #Purple credits header
-        print(f"{bcolors.OKCYAN}Credit: The Enigma Project\n\n GitHub: @projectintel-anon\n Email: leigh@enigmapr0ject.live\n Website: https://enigmapr0ject.live\n\n\n {bcolors.BOLD}Stay safe, guardian.{bcolors.ENDC}")
+        print(f"{bcolors.OKCYAN}Credit: The Enigma Project\n\n GitHub: @projectintel-anon\n Email: leigh@enigmapr0ject.tech\n Website: https://enigmapr0ject.tech\n\n\n {bcolors.BOLD}Stay safe, guardian.{bcolors.ENDC}")
         #Cyan credits header with my socials :)
         exit(0)
 ###########################################################################
@@ -767,7 +767,7 @@ for item, val in getSystemInfo().items():
     sysinfo += item + ": " + val + "\n"
 def diagnostics():
     def APICheck():
-        di = requests.get("https://enigmapr0ject.live/api/diagnostics.php")
+        di = requests.get("https://enigmapr0ject.tech/api/diagnostics.php")
         if di.content == b"Passed":
             GUI.createLabel(guiWindow, "API status: Passed", "#f0f0f0", "#a6a4a4", 500, 100)
         elif di.content == b"Failed":
@@ -878,7 +878,7 @@ passregHandler.place(x=400,y=200)
 def callback(url, LoginPanel):
     LoginPanel.createLabel(window1, "Opening Chrome...", "#e80ed2", "#08198a", 400, 330)
     webbrowser.get(using='google-chrome').open(url)
-link1 = Button(window1, text="Change password", fg="white", bg="purple", command=lambda: callback("https://enigmapr0ject.live/api/chngPw.php", LoginPanel))
+link1 = Button(window1, text="Change password", fg="white", bg="purple", command=lambda: callback("https://enigmapr0ject.tech/api/chngPw.php", LoginPanel))
 link1.place(x=100,y=285)
 def getPostData(usernameregHandler, passregHandler): #User registration
     userPost = usernameregHandler.get() #Get username
@@ -889,7 +889,7 @@ def getPostData(usernameregHandler, passregHandler): #User registration
         window1.update() #Update GUI window
     else:
         data1={"Username": userPost, "Password": passPost} #Create JSON object
-        url = "https://enigmapr0ject.live/api/serverReg.php/" #URL
+        url = "https://enigmapr0ject.tech/api/serverReg.php/" #URL
         headers={} #Blank headers
         r = requests.post(url, data=data1, headers=headers) #set this to True when you set up
         #a valid SSL, this part relies on SSL/TLS encryption.
@@ -913,7 +913,7 @@ def getLoginData(userhandler, passhandler): #User login
         window1.update() #Update GUI window
     else:
         data2={"Username": userLogin, "Password": passLogin} #Create JSON object
-        url = "https://enigmapr0ject.live/api/serverLogin.php/" #URL
+        url = "https://enigmapr0ject.tech/api/serverLogin.php/" #URL
         headers={} #Blank headers
         r = requests.post(url, data=data2, headers=headers) #set this to True when you set up
         #a valid SSL, this part relies on SSL/TLS encryption.
